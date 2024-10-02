@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carta</title>
+  <style>
+    body {
+      background-color: #f7d9da;
+      font-family: Arial, sans-serif;
+    }
+
+    #envelope {
+      margin: 150px auto;
+      position: relative;
+      width: 280px;
+      height: 180px;
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+      background-color: #f9c5c8;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .front {
+      position: absolute;
+      width: 0;
+      height: 0;
+      z-index: 3;
+    }
+
+    .flap {
+      border-left: 140px solid transparent;
+      border-right: 140px solid transparent;
+      border-bottom: 82px solid transparent;
+      border-top: 98px solid #ff3333;
+      transform-origin: top;
+      pointer-events: none;
+    }
+
+    .pocket {
+      border-left: 140px solid #ff9999;
+      border-right: 140px solid #ff9999;
+      border-bottom: 90px solid #fd8787;
+      border-top: 90px solid transparent;
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+    }
+
+    .letter {
+      position: relative;
+      background-color: #f9c5c8;
+      width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+      height: 90%;
+      top: 5%;
+      border-radius: 6px;
+      box-shadow: 0 2px 26px rgba(0, 0, 0, 0.12);
+    }
+
+    .letter:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 25%, rgba(239, 215, 239, 0.7) 55%, #eed7ef 100%);
+    }
+
+    .message {
+      display: none; /* Inicialmente oculto */
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fefefe;
+      padding: 20px;
+      border-radius: 6px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 80%;
+      box-sizing: border-box;
+      z-index: 3; /* Garante que a mensagem fique sobre a carta */
+    }
+
+    .open .message {
+      display: block; /* Exibir quando aberto */
+    }
+
+    .open .flap {
+      transform: rotateX(180deg);
+      transition: transform 0.4s ease, z-index 0.6s;
+      z-index: 1;
+    }
+
+    .close .flap {
+      transform: rotateX(0deg);
+      transition: transform 0.4s 0.6s ease, z-index 1s;
+      z-index: 5;
+    }
+
+    .close .letter {
+      transform: translateY(0px);
+      transition: transform 0.4s ease, z-index 1s;
+      z-index: 1;
+    }
+
+    .open .letter {
+      transform: translateY(-60px);
+      transition: transform 0.4s 0.6s ease, z-index 0.6s;
+      z-index: 2;
+    }
+
+    .reset {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .reset button {
+      font-weight: 800;
+      background-color: transparent;
+      border: solid 2px #ff5757;
+      border-radius: 4px;
+      color: #ff5757;
+      font-size: 14px;
+      text-transform: uppercase;
+      margin: 5px;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .reset button:hover {
+      background-color: #fc9d9d;
+      color: #a10000;
+    }
+  </style>
+</head>
+<body>
+
+<div class="envelope-wrapper">
+    <div id="envelope" class="close">
+        <div class="front flap"></div>
+        <div class="front pocket"></div>
+        <div class="letter">
+            <div class="message">Oi Gatinha, estou com sdds, vontade de te beijaaaaar!!!</div>
+            <div class="words line1"></div>
+            <div class="words line2"></div>
+            <div class="words line3"></div>
+            <div class="words line4"></div>
+        </div>
+    </div>
+</div>
+
+<div class="reset">
+    <button id="open">Abrir</button>
+    <button id="reset">Fechar</button>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var envelope = document.getElementById('envelope');
+    var btn_open = document.getElementById("open");
+    var btn_reset = document.getElementById("reset");
+
+    envelope.addEventListener("click", function() {
+        openEnvelope();
+    });
+
+    btn_open.addEventListener("click", function() {
+        openEnvelope();
+    });
+
+    btn_reset.addEventListener("click", function() {
+        closeEnvelope();
+    });
+
+    function openEnvelope() {
+        envelope.classList.add("open");
+        envelope.classList.remove("close");
+    }
+
+    function closeEnvelope() {
+        envelope.classList.add("close");
+        envelope.classList.remove("open");
+    }
+  });
+</script>
+
+</body>
+</html>
